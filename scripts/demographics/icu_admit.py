@@ -1,3 +1,5 @@
+""" Demographics - Fraction of paitents admitted to the ICU in the NIH/NIAID cohort"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,3 +1,5 @@
+""" Demographics - Fraction of Patients deemed severe by WHO Ordinal Scale (score > 4)"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
