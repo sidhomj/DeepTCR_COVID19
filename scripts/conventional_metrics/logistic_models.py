@@ -1,3 +1,4 @@
+"""Logistic models showing predictive power of each TCR metric as its own co-variate."""
 import pandas as pd
 import numpy as np
 import seaborn as sns

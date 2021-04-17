@@ -1,3 +1,4 @@
+"""Plots showing associations between conventional TCR metrics of diversity/abundance and severe illness."""
 import pandas as pd
 import numpy as np
 import seaborn as sns
