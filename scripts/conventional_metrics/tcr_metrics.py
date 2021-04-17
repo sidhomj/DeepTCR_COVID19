@@ -49,6 +49,19 @@ for ii,c in enumerate(range(9),0):
 plt.tight_layout()
 plt.savefig('figures/tcr_metrics.eps')
 
+#plot comparing cohorts
+fig,ax = plt.subplots(3,3,figsize=(10,10))
+ax = np.ndarray.flatten(ax)
+for ii,c in enumerate(range(9),0):
+    sns.violinplot(data=df_merge,x='Dataset',y=metrics[ii],cut=0,
+                   ax = ax[ii])
+    ax[ii].set_xlabel('')
+    ax[ii].spines['bottom'].set_color('black')
+    ax[ii].spines['left'].set_color('black')
+    ax[ii].set_facecolor('white')
+plt.tight_layout()
+plt.savefig('figures/tcr_metrics_cohorts.eps')
+
 
 #stats
 metric_list = []
@@ -69,3 +82,18 @@ df_stats['p_val'] = p_val
 _,df_stats['corr_p_val'],_,_ = multipletests(p_val,method='fdr_bh')
 df_stats.sort_values(by='corr_p_val',inplace=True)
 df_stats.to_csv('figures/tcr_stats.csv',index=False)
+
+#stats at cohort level
+metric_list = []
+p_val = []
+for m in metrics:
+    _,p = mannwhitneyu(df_merge[df_merge['Dataset']=='ISB'][m],df_merge[df_merge['Dataset']=='NIH/NIAID'][m])
+    metric_list.append(m)
+    p_val.append(p)
+
+df_stats = pd.DataFrame()
+df_stats['metric'] = metric_list
+df_stats['p_val'] = p_val
+_,df_stats['corr_p_val'],_,_ = multipletests(p_val,method='fdr_bh')
+df_stats.sort_values(by='corr_p_val',inplace=True)
+df_stats.to_csv('figures/tcr_stats_cohort.csv',index=False)

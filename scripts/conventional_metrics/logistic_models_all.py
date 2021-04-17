@@ -92,7 +92,7 @@ ax.legend(prop={'size': 10},loc='lower right',facecolor='white')
 ax.set_xlabel('False Positive Rate',fontsize=14)
 ax.set_ylabel('True Positive Rate',fontsize=14)
 plt.tight_layout()
-plt.savefig('figures/auc_logistic_all.epd')
+plt.savefig('figures/auc_logistic_all.eps')
 
 
 
