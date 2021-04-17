@@ -14,6 +14,7 @@ matplotlib.rc('font', family='sans-serif')
 
 
 df_metrics = pd.read_csv('../../Data/ImmuneCODE/samples.tsv',sep='\t')
+df_metrics['sample_name'] = df_metrics['sample_name']+'.tsv'
 metrics = df_metrics.columns[1:10]
 df = pd.read_csv('../../Data/ImmuneCODE/ImmuneCODE-Repertoire-Tags-002.2.tsv',sep='\t')
 df['who_ordinal_scale_bin'] = None
@@ -23,6 +24,7 @@ df['who_ordinal_scale'] = df['who_ordinal_scale_bin']
 df['Age'] = df['Age'].str.split(' ',expand=True)[0]
 df['Age'] = df['Age'].astype(float)
 df['Dataset'] = df['Dataset'].str.split('COVID-19-',expand=True)[1]
+df['sample_name'] = df['sample_name']+'.tsv'
 
 df['severe'] = None
 df['severe'][(df['icu_admit']==True) | (df['who_ordinal_scale']=='severe')] = 'severe'
@@ -78,6 +80,9 @@ for _ in DFs:
     DFs_gp.append(_.groupby(['Samples']).agg(agg_dict).reset_index())
 
 df_plot = DFs_gp
+
+df_plot[0].to_csv('niaid_preds_log.csv',index=False)
+df_plot[1].to_csv('isb_preds_log.csv',index=False)
 
 fig,ax = plt.subplots(1,1,figsize=(5,5))
 ax.plot([0, 1], [0, 1], color='navy', linestyle='--')
