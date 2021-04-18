@@ -10,7 +10,7 @@ Since the repertoire data is large, it is not included in this repository. To re
  
  This steps should prepare and format the data in a way that the other analysis scripts in the repository can use.
  
-## DeepTCR
+## DeepTCR & other dependencies
 
-DeepTCR v2.0.10 was used to run the analyses provided in this repository.
+DeepTCR v2.0.10 was used to run the analyses provided in this repository. All other dependencies to run analyses can be found under requirements.txt.
 
