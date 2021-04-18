@@ -36,7 +36,6 @@ df['Age'] = df['Age'].str.split(' ',expand=True)[0]
 df['Age'] = df['Age'].astype(float)
 df['sample_name'] = df['sample_name']+'.tsv'
 
-#select cohort (optional)
 if model == 'niaid':
     ds = ['COVID-19-NIH/NIAID']
 elif model == 'isb':
@@ -52,7 +51,7 @@ cols = np.array(list(df.columns))
 if model == 'niaid':
     label_sel = 'icu_admit'
 elif model == 'isb':
-    label_sel = 'who_ordinal_scale_bin'
+    label_sel = 'who_ordinal_scale'
 
 df_sel = df.dropna(subset=[label_sel])
 
@@ -81,11 +80,10 @@ hinge_loss_t = 0.1
 train_loss_min=0.1
 seeds = np.array(range(folds))
 graph_seed = 0
-l2_reg = 0.0
 #
 DTCR.Monte_Carlo_CrossVal(folds=folds,epochs_min=epochs_min,size_of_net=size_of_net,num_concepts=num_concepts,
                           train_loss_min=train_loss_min,combine_train_valid=True,hinge_loss_t=hinge_loss_t,
-                          seeds=seeds,graph_seed=graph_seed,l2_reg=l2_reg,subsample=100)
+                          seeds=seeds,graph_seed=graph_seed,subsample=100)
 
 df_preds = pd.DataFrame()
 df_preds['sample'] =  DTCR.sample_id

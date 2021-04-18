@@ -69,11 +69,10 @@ hinge_loss_t = 0.1
 train_loss_min=0.1
 seeds = np.array(range(folds))
 graph_seed = 0
-l2_reg = 0.0
 #
 DTCR.Monte_Carlo_CrossVal(folds=folds,epochs_min=epochs_min,size_of_net=size_of_net,num_concepts=num_concepts,
                           train_loss_min=train_loss_min,combine_train_valid=True,hinge_loss_t=hinge_loss_t,
-                          seeds=seeds,graph_seed=graph_seed,l2_reg=l2_reg,subsample=100,batch_size=100)
+                          seeds=seeds,graph_seed=graph_seed,subsample=100,batch_size=100)
 
 with open('cohort_model_preds.pkl','wb') as f:
     pickle.dump(DTCR.DFs_pred,f,protocol=4)
