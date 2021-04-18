@@ -9,6 +9,4 @@ Since the repertoire data is large, it is not included in this repository. To re
  - Run organize_files.py under scripts/preprocessing to sort the files into their respective cohorts. Doing this should create another directory underneath Data/ImmuneCODE called repertoires_org.
  
  This steps should prepare and format the data in a way that the other analysis scripts in the repository can use.
- 
- 
 
