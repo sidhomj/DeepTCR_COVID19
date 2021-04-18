@@ -51,7 +51,7 @@ cols = np.array(list(df.columns))
 if model == 'niaid':
     label_sel = 'icu_admit'
 elif model == 'isb':
-    label_sel = 'who_ordinal_scale_bin'
+    label_sel = 'who_ordinal_scale'
 
 df_sel = df.dropna(subset=[label_sel])
 
