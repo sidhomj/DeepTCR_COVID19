@@ -12,5 +12,5 @@ Since the repertoire data is large, it is not included in this repository. To re
  
 ## DeepTCR & other dependencies
 
-DeepTCR v2.0.10 was used to run the analyses provided in this repository. All other dependencies to run analyses can be found under requirements.txt.
+DeepTCR v2.0.10 with python 3.8 was used to run the analyses provided in this repository. All other dependencies to run analyses can be found under requirements.txt.
 
