@@ -37,77 +37,100 @@ df = pd.concat([df_cd8,df_cd4])
 with open('../supervised/isb_ft_pred.pkl','rb') as f:
     _,_,df_isb = pickle.load(f)
 df_isb['cohort'] = 'COVID-19-ISB'
-df_isb['covid+'] = df_isb['beta_sequences'].isin(df['beta_sequences'])
+df_isb['covid+'] = None
+df_isb['covid+'][df_isb['beta_sequences'].isin(df['beta_sequences'])] = 'COVID (+)'
+df_isb['covid+'][~df_isb['beta_sequences'].isin(df['beta_sequences'])] = 'COVID (-)'
 df_isb = pd.merge(df_isb,df,how='left')
 
 #df_isb = df_isb[df_isb['cell_type']!='CD8']
 l = 'covid+'
-# l = 'orf_name'
-sns.violinplot(data=df_isb,x=l,y='pred',cut=0,order=df_isb.groupby([l]).agg({'pred':'mean'}).sort_values(by='pred').index)
-plt.xticks(rotation=90)
+sns.violinplot(data=df_isb,x=l,y='pred',cut=0,order=['COVID (-)','COVID (+)'])
 plt.gca().set_facecolor('white')
 plt.gca().spines['left'].set_color('black')
 plt.gca().spines['bottom'].set_color('black')
 plt.xlabel('')
-plt.ylabel('Prediction')
-plt.gca().axhline(.90,linestyle='--')
+plt.ylabel('Prediction',fontsize=18)
+plt.xticks(fontsize=18)
+plt.gca().axhline(.90,linestyle='--',color='black')
 plt.tight_layout()
+plt.savefig('figures/covid_preds_isb.eps')
 
 
 l = 'orf_name'
-sns.violinplot(data=df_isb,x=l,y='pred',cut=0,order=df_isb.groupby([l]).agg({'pred':'mean'}).sort_values(by='pred').index,hue='cell_type')
+diff = []
+for o in np.unique(df_isb[l].dropna()):
+    df_temp = df_isb[df_isb[l]==o]
+    df_temp = df_temp.groupby(['cell_type']).agg({'pred':'mean'})
+    try:
+        val_cd8 = df_temp.loc['CD8']['pred']
+    except:
+        val_cd8 = 0
+
+    try:
+        val_cd4 = df_temp.loc['CD4']['pred']
+    except:
+        val_cd4 = 0
+
+    diff.append(np.abs(val_cd8-val_cd4))
+
+order = np.unique(df_isb[l].dropna())[np.argsort(diff)]
+sns.violinplot(data=df_isb,x=l,y='pred',cut=0,order=order,hue='cell_type')
+plt.gca().set_facecolor('white')
+plt.gca().spines['left'].set_color('black')
+plt.gca().spines['bottom'].set_color('black')
 plt.xticks(rotation=90)
+plt.ylabel('Prediction',fontsize=18)
 plt.tight_layout()
 plt.xlabel('')
-plt.ylabel('Prediction')
 plt.legend(loc='lower right')
+labels = [item.get_text() for item in plt.gca().get_xticklabels()]
+labels_new = []
+for l in labels:
+    labels_new.append(l.replace(' ', '\n'))
+plt.gca().set_xticklabels(labels_new)
+plt.tight_layout()
+plt.savefig('figures/covid_preds_isb_cd84.eps')
 
 
 #niaid
 with open('../supervised/niaid_ft_pred.pkl','rb') as f:
     _,_,df_niaid = pickle.load(f)
 df_niaid['cohort'] = 'COVID-19-NIH/NIAID'
-df_niaid['covid+'] = df_niaid['beta_sequences'].isin(df['beta_sequences'])
+df_niaid['covid+'] = None
+df_niaid['covid+'][df_niaid['beta_sequences'].isin(df['beta_sequences'])] = 'COVID (+)'
+df_niaid['covid+'][~df_niaid['beta_sequences'].isin(df['beta_sequences'])] = 'COVID (-)'
 df_niaid = pd.merge(df_niaid,df,how='left')
+
 l = 'covid+'
-# l = 'orf_name'
-# sns.violinplot(data=df_niaid,x=l,y='pred',cut=0,order=df_niaid.groupby([l]).agg({'pred':'mean'}).sort_values(by='pred').index)
-sns.violinplot(data=df_niaid,x=l,y='pred',cut=0,order=[False,True])
-plt.xticks(rotation=90)
+sns.violinplot(data=df_niaid,x=l,y='pred',cut=0,order=['COVID (-)','COVID (+)'])
 plt.gca().set_facecolor('white')
 plt.gca().spines['left'].set_color('black')
 plt.gca().spines['bottom'].set_color('black')
 plt.tight_layout()
 plt.xlabel('')
-plt.ylabel('Prediction')
-plt.gca().axhline(.90,linestyle='--')
+plt.ylabel('Prediction',fontsize=18)
+plt.xticks(fontsize=18)
+plt.gca().axhline(.90,linestyle='--',color='black')
+plt.savefig('figures/covid_preds_niaid.eps')
 
 
 l = 'orf_name'
-sns.violinplot(data=df_niaid,x=l,y='pred',cut=0,order=df_niaid.groupby([l]).agg({'pred':'mean'}).sort_values(by='pred').index,hue='cell_type')
+sns.violinplot(data=df_niaid,x=l,y='pred',cut=0,order=order,hue='cell_type')
+plt.gca().set_facecolor('white')
+plt.gca().spines['left'].set_color('black')
+plt.gca().spines['bottom'].set_color('black')
 plt.xticks(rotation=90)
+plt.ylabel('Prediction',fontsize=18)
 plt.tight_layout()
 plt.xlabel('')
-plt.ylabel('Prediction')
 plt.legend(loc='lower right')
-
-
-#AUC curves
-dfs = [df_isb,df_niaid]
-ds = ['ISB','NIH/NIAID']
-fig,ax = plt.subplots()
-ax.plot([0, 1], [0, 1], color='navy', linestyle='--')
-for df,d in zip(dfs,ds):
-    score = roc_auc_score(df['covid+'],df['pred'])
-    fpr,tpr,_ = roc_curve(df['covid+'],df['pred'])
-    ax.plot(fpr,tpr,label=d+' (%0.2f)' % score)
-    ax.spines['bottom'].set_color('black')
-    ax.spines['left'].set_color('black')
-    ax.set_facecolor('white')
-ax.legend(prop={'size': 10}, loc='lower right', facecolor='white')
-ax.set_xlabel('False Positive Rate', fontsize=14)
-ax.set_ylabel('True Positive Rate', fontsize=14)
+labels = [item.get_text() for item in plt.gca().get_xticklabels()]
+labels_new = []
+for l in labels:
+    labels_new.append(l.replace(' ', '\n'))
+plt.gca().set_xticklabels(labels_new)
 plt.tight_layout()
+plt.savefig('figures/covid_preds_niaid_cd84.eps')
 
 df_isb['call'] = df_isb['pred'] > 0.90
 df_isb['count'] = 1
