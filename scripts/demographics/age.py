@@ -34,7 +34,7 @@ for c in np.unique(df['Dataset']):
 df_data = pd.DataFrame()
 df_data['c'] = np.hstack(c_list)
 df_data[label_sel] = np.hstack(data_list)
-
+df_data.to_csv('data/age.csv',index=False)
 #numeric label
 sns.violinplot(data=df_data,y='c',x=label_sel,cut=0,orient='h')
 plt.ylabel('')

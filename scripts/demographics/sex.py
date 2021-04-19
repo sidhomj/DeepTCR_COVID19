@@ -41,6 +41,7 @@ for c in np.unique(df['Dataset']):
 df_data = pd.DataFrame()
 df_data['c'] = np.hstack(c_list)
 df_data[label_sel] = np.hstack(data_list)
+df_data.to_csv('data/sex.csv',index=False)
 
 #categorical label
 df_data = pd.DataFrame(df_data.groupby(['c',label_sel]).size())
@@ -55,8 +56,11 @@ d = df_data.index[0]
 fig1, ax = plt.subplots(1,2,figsize=(10,5))
 for ii,d in enumerate(ds):
     values = np.array(df_data.loc[d])
-    ax[ii].pie(values, labels=labels, autopct=make_autopct(values), startangle=90,textprops={'fontsize':12})
+    w,l,p = ax[ii].pie(values, labels=labels, autopct=make_autopct(values), startangle=90,textprops={'fontsize':12},
+                       labeldistance=0.8,pctdistance=0.3)
     ax[ii].axis('equal')
     ax[ii].set_title(d)
+    for _ in l:
+        _.set_fontsize(28)
 plt.tight_layout()
 plt.savefig('figures/sex.eps')

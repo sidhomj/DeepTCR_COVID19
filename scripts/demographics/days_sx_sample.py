@@ -23,7 +23,7 @@ if ds is not None:
     df = df[df['Dataset'].isin(ds)]
 
 label_sel = 'days_from_symptom_onset_to_sample'
-label_sel = 'days_from_diagnosis_to_sample'
+# label_sel = 'days_from_diagnosis_to_sample'
 
 c_list = []
 data_list = []
@@ -36,7 +36,7 @@ for c in np.unique(df['Dataset']):
 df_data = pd.DataFrame()
 df_data['c'] = np.hstack(c_list)
 df_data[label_sel] = np.hstack(data_list)
-
+df_data.to_csv('data/days_sx_sample.csv',index=False)
 #numeric label
 sns.violinplot(data=df_data,y='c',x=label_sel,cut=0,orient='h')
 plt.ylabel('')

@@ -43,6 +43,7 @@ for c in np.unique(df['Dataset']):
 df_data = pd.DataFrame()
 df_data['c'] = np.hstack(c_list)
 df_data[label_sel] = np.hstack(data_list)
+df_data.to_csv('data/ethnicity.csv',index=False)
 
 #categorical label
 df_data = pd.DataFrame(df_data.groupby(['c',label_sel]).size())
