@@ -94,7 +94,7 @@ for _ in DFs:
 df_plot = DFs_gp
 
 #check if 99 CI crosses 0
-np.percentile(DFs_coef[1],0.5,axis=0)
+np.percentile(DFs_coef[0],0.5,axis=0)
 np.percentile(DFs_coef[1],99.5,axis=0)
 
 
@@ -107,9 +107,9 @@ for ii,d in enumerate(ds,0):
     ax.spines['bottom'].set_color('black')
     ax.spines['left'].set_color('black')
     ax.set_facecolor('white')
-ax.legend(prop={'size': 10},loc='lower right',facecolor='white')
-ax.set_xlabel('False Positive Rate',fontsize=14)
-ax.set_ylabel('True Positive Rate',fontsize=14)
+ax.legend(prop={'size': 15},loc='lower right',facecolor='white')
+ax.set_xlabel('False Positive Rate',fontsize=18)
+ax.set_ylabel('True Positive Rate',fontsize=18)
 plt.tight_layout()
 plt.savefig('figures/auc_logistic_all.eps')
 
@@ -126,7 +126,12 @@ plt.gca().spines['bottom'].set_color('black')
 plt.gca().spines['left'].set_color('black')
 plt.axhline(linestyle='--',color='k')
 plt.legend(facecolor='white')
+plt.xlabel('')
+plt.xticks(fontsize=18)
+plt.ylabel('Model Coefficients',fontsize=18)
+plt.gca().legend(prop={'size': 15},loc='upper right',facecolor='white')
 plt.tight_layout()
+plt.savefig('figures/coeff.eps')
 
 
 
