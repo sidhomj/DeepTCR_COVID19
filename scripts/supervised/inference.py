@@ -8,10 +8,10 @@ from copy import deepcopy
 from scipy.stats import spearmanr
 
 model = 'isb'
-model = 'niaid'
+# model = 'niaid'
 
-data = 'isb'
-# data = 'niaid'
+# data = 'isb'
+data = 'niaid'
 # data = 'huniv'
 
 DTCR = DeepTCR_WF('data_1000')
@@ -83,7 +83,6 @@ j_beta = j_beta[idx]
 label_id = np.array(list(map(label_dict.get,sample_id)))
 
 DTCR = DeepTCR_WF(model+'_model',device=4)
-models = ['model_'+str(x) for x in np.random.choice(50,25,replace=False)]
 models = None
 DTCR.Sample_Inference(sample_labels=sample_id,
                       beta_sequences=beta_sequences,
@@ -105,5 +104,7 @@ else:
 
     print(roc_auc_score(df_preds['label'],df_preds['Pred']))
     sns.violinplot(data=df_preds,x='label',y='Pred',cut=0)
+
+df_preds.to_csv('model_'+model+'_data_'+data+'.csv',index=False)
 
 
