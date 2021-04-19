@@ -135,11 +135,13 @@ plt.savefig('figures/covid_preds_niaid_cd84.eps')
 df_isb['call'] = df_isb['pred'] > 0.90
 df_isb['count'] = 1
 df_isb_cont = pd.pivot_table(data=df_isb,index='covid+',columns=['call'],values=['count'],aggfunc='sum')
+df_isb_cont = df_isb_cont.loc[['COVID (-)','COVID (+)']]
 OR, p_val = fisher_exact(df_isb_cont)
 
 df_niaid['call'] = df_niaid['pred'] > 0.90
 df_niaid['count'] = 1
 df_niaid_cont = pd.pivot_table(data=df_niaid,index='covid+',columns=['call'],values=['count'],aggfunc='sum')
+df_niaid_cont = df_niaid_cont.loc[['COVID (-)','COVID (+)']]
 OR, p_val = fisher_exact(df_niaid_cont)
 
 

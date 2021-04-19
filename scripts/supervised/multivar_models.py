@@ -94,8 +94,8 @@ for _ in DFs:
 df_plot = DFs_gp
 
 #check if 99 CI crosses 0
-np.percentile(DFs_coef[0],0.5,axis=0)
-np.percentile(DFs_coef[1],99.5,axis=0)
+print(np.percentile(DFs_coef[1],0.5,axis=0))
+print(np.percentile(DFs_coef[1],99.5,axis=0))
 
 
 fig,ax = plt.subplots(1,1,figsize=(5,5))
