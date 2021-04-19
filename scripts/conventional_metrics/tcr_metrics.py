@@ -39,9 +39,11 @@ for ii,c in enumerate(range(9),0):
     sns.violinplot(data=df_merge,x='Dataset',y=metrics[ii],cut=0,
                    ax = ax[ii],hue=label_sel)
     ax[ii].set_xlabel('')
+    ax[ii].set_ylabel(metrics[ii],fontsize=12)
     ax[ii].spines['bottom'].set_color('black')
     ax[ii].spines['left'].set_color('black')
     ax[ii].set_facecolor('white')
+    ax[ii].tick_params(axis='x', labelsize=14)
     if ii !=0:
         ax[ii].get_legend().remove()
     else:
@@ -57,9 +59,11 @@ for ii,c in enumerate(range(9),0):
     sns.violinplot(data=df_merge,x='Dataset',y=metrics[ii],cut=0,
                    ax = ax[ii])
     ax[ii].set_xlabel('')
+    ax[ii].set_ylabel(metrics[ii],fontsize=12)
     ax[ii].spines['bottom'].set_color('black')
     ax[ii].spines['left'].set_color('black')
     ax[ii].set_facecolor('white')
+    ax[ii].tick_params(axis='x', labelsize=14)
 plt.tight_layout()
 plt.savefig('figures/tcr_metrics_cohorts.eps')
 
