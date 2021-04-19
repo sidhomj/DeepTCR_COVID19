@@ -10,8 +10,8 @@ from scipy.stats import spearmanr
 model = 'isb'
 # model = 'niaid'
 
-# data = 'isb'
-data = 'niaid'
+data = 'isb'
+# data = 'niaid'
 # data = 'huniv'
 
 DTCR = DeepTCR_WF('data_1000')
