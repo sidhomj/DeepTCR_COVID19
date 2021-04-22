@@ -144,5 +144,13 @@ df_niaid_cont = pd.pivot_table(data=df_niaid,index='covid+',columns=['call'],val
 df_niaid_cont = df_niaid_cont.loc[['COVID (-)','COVID (+)']]
 OR, p_val = fisher_exact(df_niaid_cont)
 
+df_isb_covid = df_isb[df_isb['covid+']=='COVID (+)']
+df_isb_covid.sort_values(by='pred',ascending=False,inplace=True)
+df_isb_covid.to_csv('isb_covid_seq.csv',index=False)
+
+df_niaid_covid = df_niaid[df_niaid['covid+']=='COVID (+)']
+df_niaid_covid.sort_values(by='pred',ascending=False,inplace=True)
+df_niaid_covid.to_csv('niaid_covid_seq.csv',index=False)
+
 
 
