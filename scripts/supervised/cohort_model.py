@@ -61,7 +61,7 @@ label_id = np.array(list(map(label_dict.get,sample_id)))
 DTCR = DeepTCR_WF('cohort_model',device=5)
 DTCR.Load_Data(beta_sequences=beta_sequences,counts=counts,sample_labels=sample_id,class_labels=label_id)
 
-folds = 1
+folds = 10
 epochs_min = 25
 size_of_net = 'small'
 num_concepts=12
@@ -77,13 +77,7 @@ DTCR.Monte_Carlo_CrossVal(folds=folds,epochs_min=epochs_min,size_of_net=size_of_
 with open('cohort_model_preds.pkl','wb') as f:
     pickle.dump(DTCR.DFs_pred,f,protocol=4)
 
-df_preds = pd.DataFrame()
-df_preds['sample'] =  DTCR.sample_id
-df_preds['beta_sequences'] = DTCR.beta_sequences
-df_preds['pred'] = DTCR.predicted[:,1]
-df_preds['freq'] = DTCR.freq
-
 with open('cohort_model_seq_preds.pkl', 'wb') as f:
-    pickle.dump([DTCR.features, DTCR.predicted,df_preds], f, protocol=4)
+    pickle.dump([DTCR.predicted,DTCR.beta_sequences,DTCR.lb], f, protocol=4)
 
 
