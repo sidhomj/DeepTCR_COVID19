@@ -90,7 +90,7 @@ for ii,d in enumerate(ds,0):
     for m in metrics:
         score = roc_auc_score(df_plot[ii]['y_test'],df_plot[ii][m])
         fpr,tpr,_ = roc_curve(df_plot[ii]['y_test'],df_plot[ii][m])
-        ax[ii].plot(fpr,tpr,label=m + '(%0.2f)' % score)
+        ax[ii].plot(fpr,tpr,label=m + '(AUC = %0.2f)' % score)
         ax[ii].set_title(d)
         ax[ii].legend(prop={'size': 8},loc='lower right',facecolor='white')
         ax[ii].set_xlabel('False Positive Rate',fontsize=18)
