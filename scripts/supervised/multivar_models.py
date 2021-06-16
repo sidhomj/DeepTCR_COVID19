@@ -103,7 +103,7 @@ ax.plot([0, 1], [0, 1], color='navy', linestyle='--')
 for ii,d in enumerate(ds,0):
     score = roc_auc_score(df_plot[ii]['y_test'],df_plot[ii]['y_pred'])
     fpr,tpr,_ = roc_curve(df_plot[ii]['y_test'],df_plot[ii]['y_pred'])
-    ax.plot(fpr,tpr,label=d+' (%0.2f)' % score)
+    ax.plot(fpr,tpr,label=d+' (AUC = %0.2f)' % score)
     ax.spines['bottom'].set_color('black')
     ax.spines['left'].set_color('black')
     ax.set_facecolor('white')

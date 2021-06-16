@@ -27,7 +27,7 @@ for ii,(f,n) in enumerate(zip(files,names),0):
 
     score = roc_auc_score(df_preds['y_test'],df_preds['Pred'])
     fpr,tpr,_ = roc_curve(df_preds['y_test'],df_preds['Pred'])
-    ax.plot(fpr,tpr,label=n+' (%0.2f)' % score)
+    ax.plot(fpr,tpr,label=n+' (AUC = %0.2f)' % score)
     ax.spines['bottom'].set_color('black')
     ax.spines['left'].set_color('black')
     ax.set_facecolor('white')

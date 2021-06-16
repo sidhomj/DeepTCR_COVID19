@@ -26,7 +26,7 @@ ax.plot([0, 1], [0, 1], color='navy', linestyle='--')
 for ii,d in enumerate(ds,0):
     score = roc_auc_score(DFs_pred[d]['y_test'],DFs_pred[d]['y_pred'])
     fpr,tpr,_ = roc_curve(DFs_pred[d]['y_test'],DFs_pred[d]['y_pred'])
-    ax.plot(fpr,tpr,label=d[9:]+' (%0.2f)' % score)
+    ax.plot(fpr,tpr,label=d[9:]+' (AUC = %0.2f)' % score)
     ax.spines['bottom'].set_color('black')
     ax.spines['left'].set_color('black')
     ax.set_facecolor('white')
