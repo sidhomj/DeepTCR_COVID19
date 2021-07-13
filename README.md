@@ -6,7 +6,7 @@ SARS-CoV-2 infection is characterized by a highly variable clinical course with 
 ## Publication
 For full description of methods, please refer to the following manuscript:
 
-[Sidhom, J. W. & Baras, A. S. (2021). Deep learning identifies antigenic determinants of severe SARS-CoV-2 infection within T-cell repertoires.](https://www.nature.com/articles/s41598-021-93608-8)
+[Sidhom, JW., Baras, A.S. Deep learning identifies antigenic determinants of severe SARS-CoV-2 infection within T-cell repertoires. Sci Rep 11, 14275 (2021).](https://www.nature.com/articles/s41598-021-93608-8)
 
 ## Prepare Data
 Since the repertoire data is large, it is not included in this repository. To replicate the anlayses found here, follow the following instructions.
