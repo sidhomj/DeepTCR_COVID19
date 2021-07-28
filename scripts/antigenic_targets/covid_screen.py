@@ -74,22 +74,23 @@ for o in np.unique(df_isb[l].dropna()):
     diff.append(np.abs(val_cd8-val_cd4))
 
 order = np.unique(df_isb[l].dropna())[np.argsort(diff)]
-sns.violinplot(data=df_isb,x=l,y='pred',cut=0,order=order,hue='cell_type')
+fig,ax = plt.subplots(figsize=(5,7))
+sns.violinplot(data=df_isb,x='pred',y=l,cut=0,order=order,hue='cell_type',palette=['m','g'],orient='h')
 plt.gca().set_facecolor('white')
 plt.gca().spines['left'].set_color('black')
 plt.gca().spines['bottom'].set_color('black')
 plt.xticks(rotation=90)
-plt.ylabel('Prediction',fontsize=18)
+plt.ylabel('',fontsize=18)
 plt.tight_layout()
-plt.xlabel('')
+plt.xlabel('Prediction')
 plt.legend(loc='lower right')
-labels = [item.get_text() for item in plt.gca().get_xticklabels()]
+labels = [item.get_text() for item in plt.gca().get_yticklabels()]
 labels_new = []
 for l in labels:
     labels_new.append(l.replace(' ', '\n'))
-plt.gca().set_xticklabels(labels_new)
+plt.gca().set_yticklabels(labels_new)
 plt.tight_layout()
-plt.savefig('figures/covid_preds_isb_cd84.eps')
+plt.savefig('figures_ant/covid_preds_isb_cd84.eps')
 
 
 #niaid
@@ -115,22 +116,23 @@ plt.savefig('figures/covid_preds_niaid.eps')
 
 
 l = 'orf_name'
-sns.violinplot(data=df_niaid,x=l,y='pred',cut=0,order=order,hue='cell_type')
+fig,ax = plt.subplots(figsize=(5,7))
+sns.violinplot(data=df_niaid,x='pred',y=l,cut=0,order=order,hue='cell_type',palette=['m','g'],orient='h')
 plt.gca().set_facecolor('white')
 plt.gca().spines['left'].set_color('black')
 plt.gca().spines['bottom'].set_color('black')
 plt.xticks(rotation=90)
-plt.ylabel('Prediction',fontsize=18)
+plt.ylabel('',fontsize=18)
 plt.tight_layout()
-plt.xlabel('')
+plt.xlabel('Prediction')
 plt.legend(loc='lower right')
-labels = [item.get_text() for item in plt.gca().get_xticklabels()]
+labels = [item.get_text() for item in plt.gca().get_yticklabels()]
 labels_new = []
 for l in labels:
     labels_new.append(l.replace(' ', '\n'))
-plt.gca().set_xticklabels(labels_new)
+plt.gca().set_yticklabels(labels_new)
 plt.tight_layout()
-plt.savefig('figures/covid_preds_niaid_cd84.eps')
+plt.savefig('figures_ant/covid_preds_niaid_cd84.eps')
 
 df_isb['call'] = df_isb['pred'] > 0.90
 df_isb['count'] = 1
